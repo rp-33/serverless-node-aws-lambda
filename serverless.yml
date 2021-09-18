@@ -1,6 +1,5 @@
 
-
-service: aws-lambda-api
+service: rest-api
 
 frameworkVersion: '2'
 
@@ -11,10 +10,42 @@ provider:
   region : eu-central-1
   lambdaHashingVersion: 20201221
 
+plugins:
+  - serverless-offline
+
 functions:
-  hello:
-    handler: handler.hello
+  getAll:
+    handler: handler.getAll
     events:
       - http:
           method: get
-          path: /helloworld
+          path: /getAll
+          cors: true
+  getOne:
+    handler: handler.getOne
+    events:
+      - http:
+          method: get
+          path: /getOne/{_id}
+          cors: true
+  create:
+    handler: handler.create
+    events:
+      - http:
+          method: post
+          path: /create
+          cors: true
+  edit:
+    handler: handler.edit
+    events:
+      - http:
+          method: put
+          path: /edit/{_id}
+          cors: true
+  delete:
+    handler: handler.delete
+    events:
+      - http:
+          method: delete
+          path: /delete/{_id}
+          cors: true
